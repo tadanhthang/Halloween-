@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halloween Video</title>
+    <title>Happy Halloween</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* Video container - 16:9 aspect ratio */
         .video-container {
             position: relative;
             width: 100%;
@@ -32,9 +31,613 @@
             box-shadow: 0 0 100px rgba(255, 69, 0, 0.5);
         }
 
-        /* Scenes */
         .scene {
             position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .scene.active {
+            opacity: 1;
+        }
+
+        /* Scene 1: Forest */
+        .scene-1 {
+            background: radial-gradient(circle at center, #1a0a00, #000000);
+        }
+
+        .moon {
+            position: absolute;
+            top: 10%;
+            right: 15%;
+            font-size: 20vmin;
+            animation: moonGlow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 50px rgba(255, 200, 100, 0.8));
+        }
+
+        @keyframes moonGlow {
+            0%, 100% { filter: drop-shadow(0 0 50px rgba(255, 200, 100, 0.8)); }
+            50% { filter: drop-shadow(0 0 80px rgba(255, 200, 100, 1)); }
+        }
+
+        .forest {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+        }
+
+        .trees {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            font-size: 15vmin;
+            filter: brightness(0.3);
+        }
+
+        /* Scene 2: Pumpkin */
+        .scene-2 {
+            background: radial-gradient(circle at center, #2d1400, #000000);
+        }
+
+        .big-pumpkin {
+            font-size: 40vmin;
+            animation: pumpkinReveal 2s ease-out;
+            filter: drop-shadow(0 0 80px rgba(255, 140, 0, 1));
+        }
+
+        @keyframes pumpkinReveal {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* Scene 3: Title */
+        .scene-3 {
+            background: radial-gradient(circle at center, #1a0000, #000000);
+            flex-direction: column;
+        }
+
+        .title-happy {
+            font-size: 12vmin;
+            letter-spacing: 2vmin;
+            background: linear-gradient(45deg, #ff4500, #ff8c00, #ff4500);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s ease-in-out infinite, slideInLeft 1s ease-out;
+            margin-bottom: 2vh;
+        }
+
+        .title-halloween {
+            font-size: 18vmin;
+            letter-spacing: 3vmin;
+            background: linear-gradient(45deg, #ff4500, #8b00ff, #ff4500);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s ease-in-out infinite, slideInRight 1s ease-out;
+            filter: drop-shadow(0 0 60px rgba(255, 69, 0, 1));
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scene 4: Trick or Treat */
+        .scene-4 {
+            background: linear-gradient(135deg, #1a0500 0%, #0a0000 100%);
+            flex-direction: column;
+        }
+
+        .trick-or-treat {
+            font-size: 15vmin;
+            letter-spacing: 2vmin;
+            color: #ff8c00;
+            text-shadow: 
+                0 0 20px rgba(255, 140, 0, 1),
+                0 0 40px rgba(255, 69, 0, 0.8),
+                0 0 60px rgba(255, 69, 0, 0.6);
+            animation: flicker 0.5s ease-in-out infinite, zoomIn 1.5s ease-out;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .candy-icons {
+            display: flex;
+            gap: 5vmin;
+            margin-top: 5vh;
+            font-size: 10vmin;
+            animation: fadeIn 2s ease-out 0.5s backwards;
+        }
+
+        .candy-icon {
+            animation: bounceCandy 1s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8));
+        }
+
+        .candy-icon:nth-child(2) { animation-delay: 0.2s; }
+        .candy-icon:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounceCandy {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Scene 5: Message */
+        .scene-5 {
+            background: radial-gradient(circle at center, #2d0a00, #000000);
+            flex-direction: column;
+            padding: 5%;
+            text-align: center;
+        }
+
+        .message-icon {
+            font-size: 18vmin;
+            margin-bottom: 4vh;
+            animation: fadeInScale 1.5s ease-out;
+            filter: drop-shadow(0 0 50px rgba(255, 140, 0, 1));
+        }
+
+        @keyframes fadeInScale {
+            from {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .message-text {
+            font-size: 4.5vmin;
+            color: #ff8c00;
+            line-height: 1.8;
+            max-width: 85%;
+            margin: 0 auto;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+            animation: fadeInUp 1.5s ease-out 0.5s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-highlight {
+            color: #fff;
+            font-weight: bold;
+            font-size: 5vmin;
+            display: block;
+            margin: 3vh 0;
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(255, 140, 0, 0.6);
+            animation: glowText 2s ease-in-out infinite;
+        }
+
+        @keyframes glowText {
+            0%, 100% {
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 0.8),
+                    0 0 40px rgba(255, 140, 0, 0.6);
+            }
+            50% {
+                text-shadow: 
+                    0 0 30px rgba(255, 255, 255, 1),
+                    0 0 60px rgba(255, 140, 0, 1);
+            }
+        }
+
+        .message-emojis {
+            display: flex;
+            justify-content: center;
+            gap: 3vmin;
+            margin-top: 4vh;
+            font-size: 8vmin;
+            animation: fadeIn 2s ease-out 1s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-emoji {
+            animation: bounceEmoji 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8));
+        }
+
+        .message-emoji:nth-child(1) { animation-delay: 0s; }
+        .message-emoji:nth-child(2) { animation-delay: 0.3s; }
+        .message-emoji:nth-child(3) { animation-delay: 0.6s; }
+        .message-emoji:nth-child(4) { animation-delay: 0.9s; }
+
+        @keyframes bounceEmoji {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.2); }
+        }
+
+        /* Flying elements */
+        .bat {
+            position: absolute;
+            font-size: 8vmin;
+            animation: flyAcross linear infinite;
+            filter: drop-shadow(0 0 10px rgba(128, 0, 128, 0.8));
+        }
+
+        @keyframes flyAcross {
+            0% { transform: translateX(-20vw) translateY(0); }
+            50% { transform: translateX(60vw) translateY(-10vh); }
+            100% { transform: translateX(120vw) translateY(0); }
+        }
+
+        .ghost-float {
+            position: absolute;
+            font-size: 10vmin;
+            animation: ghostFloat 8s ease-in-out infinite;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.8));
+        }
+
+        @keyframes ghostFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-50px); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 0.5vmin;
+            height: 0.5vmin;
+            background: #ff8c00;
+            border-radius: 50%;
+            animation: twinkle 2s ease-in-out infinite;
+            box-shadow: 0 0 10px #ff8c00;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(2); }
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: absolute;
+            bottom: 2%;
+            left: 5%;
+            right: 5%;
+            height: 0.5vh;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4500, #ff8c00);
+            width: 0%;
+            animation: progress 28s linear forwards;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.8);
+        }
+
+        @keyframes progress {
+            to { width: 100%; }
+        }
+
+        /* Replay button */
+        .replay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ff4500, #8b00ff);
+            border: none;
+            padding: 2vh 4vw;
+            font-size: 3vmin;
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 0.5vmin;
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .replay-btn.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .replay-btn:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 60px rgba(255, 69, 0, 1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .video-container {
+                width: 100vw;
+                height: 100vh;
+                max-width: none;
+                aspect-ratio: auto;
+            }
+
+            .title-happy {
+                font-size: 10vmin;
+                letter-spacing: 1.5vmin;
+            }
+
+            .title-halloween {
+                font-size: 14vmin;
+                letter-spacing: 2vmin;
+            }
+
+            .trick-or-treat {
+                font-size: 12vmin;
+                letter-spacing: 1.5vmin;
+            }
+
+            .message-text {
+                font-size: 3.8vmin;
+                line-height: 1.6;
+            }
+
+            .message-highlight {
+                font-size: 4.2vmin;
+                margin: 2vh 0;
+            }
+
+            .message-emojis {
+                gap: 2vmin;
+                font-size: 7vmin;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-happy {
+                font-size: 8vmin;
+                letter-spacing: 1vmin;
+            }
+
+            .title-halloween {
+                font-size: 11vmin;
+                letter-spacing: 1.5vmin;
+            }
+
+            .trick-or-treat {
+                font-size: 10vmin;
+                letter-spacing: 1vmin;
+            }
+
+            .candy-icons {
+                gap: 3vmin;
+            }
+
+            .message-text {
+                font-size: 3.2vmin;
+                line-height: 1.5;
+            }
+
+            .message-highlight {
+                font-size: 3.6vmin;
+                margin: 1.5vh 0;
+            }
+
+            .message-emojis {
+                gap: 2vmin;
+                font-size: 6vmin;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container" id="videoContainer">
+        <!-- Scene 1 -->
+        <div class="scene scene-1 active" id="scene1">
+            <div class="moon">🌕</div>
+            <div class="forest">
+                <div class="trees">
+                    <span>🌲</span>
+                    <span>🌲</span>
+                    <span>🌲</span>
+                    <span>🌲</span>
+                    <span>🌲</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scene 2 -->
+        <div class="scene scene-2" id="scene2">
+            <div class="big-pumpkin">🎃</div>
+        </div>
+
+        <!-- Scene 3 -->
+        <div class="scene scene-3" id="scene3">
+            <div class="title-happy">HAPPY</div>
+            <div class="title-halloween">HALLOWEEN</div>
+        </div>
+
+        <!-- Scene 4 -->
+        <div class="scene scene-4" id="scene4">
+            <div class="trick-or-treat">TRICK OR TREAT</div>
+            <div class="candy-icons">
+                <span class="candy-icon">🍬</span>
+                <span class="candy-icon">🍭</span>
+                <span class="candy-icon">🍫</span>
+            </div>
+        </div>
+
+        <!-- Scene 5: Lời chúc -->
+        <div class="scene scene-5" id="scene5">
+            <div class="message-icon">🎃</div>
+            <div class="message-text">
+                Chúc em một đêm Halloween thật vui vẻ và đáng sợ!
+                <span class="message-highlight">Hãy tận hưởng những khoảnh khắc kinh hoàng nhất!</span>
+                Mong rằng em sẽ có những trải nghiệm ma quái đầy thú vị và những món quà ngọt ngào nhất!
+            </div>
+            <div class="message-emojis">
+                <span class="message-emoji">👻</span>
+                <span class="message-emoji">🦇</span>
+                <span class="message-emoji">🕷️</span>
+                <span class="message-emoji">💀</span>
+            </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <!-- Replay button -->
+        <button class="replay-btn" id="replayBtn" onclick="replayVideo()">
+            🔄 XEM LẠI
+        </button>
+    </div>
+
+    <script>
+        const scenes = [
+            { id: 'scene1', duration: 3000 },
+            { id: 'scene2', duration: 3000 },
+            { id: 'scene3', duration: 7000 },
+            { id: 'scene4', duration: 7000 },
+            { id: 'scene5', duration: 8000 }
+        ];
+
+        let currentScene = 0;
+
+        function showScene(index) {
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+
+            if (index < scenes.length) {
+                document.getElementById(scenes[index].id).classList.add('active');
+            }
+        }
+
+        function playVideo() {
+            if (currentScene < scenes.length) {
+                showScene(currentScene);
+                
+                setTimeout(() => {
+                    currentScene++;
+                    if (currentScene < scenes.length) {
+                        playVideo();
+                    } else {
+                        setTimeout(() => {
+                            document.getElementById('replayBtn').classList.add('show');
+                        }, 1000);
+                    }
+                }, scenes[currentScene].duration);
+            }
+        }
+
+        function replayVideo() {
+            currentScene = 0;
+            document.getElementById('replayBtn').classList.remove('show');
+            
+            const progressFill = document.querySelector('.progress-fill');
+            progressFill.style.animation = 'none';
+            setTimeout(() => {
+                progressFill.style.animation = 'progress 28s linear forwards';
+            }, 10);
+            
+            playVideo();
+        }
+
+        function createBats() {
+            for (let i = 0; i < 8; i++) {
+                const bat = document.createElement('div');
+                bat.className = 'bat';
+                bat.textContent = '🦇';
+                bat.style.top = (Math.random() * 60 + 10) + '%';
+                bat.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                bat.style.animationDelay = Math.random() * 8 + 's';
+                document.getElementById('videoContainer').appendChild(bat);
+            }
+        }
+
+        function createGhosts() {
+            const positions = [
+                { left: '10%', top: '20%' },
+                { right: '10%', top: '30%' },
+                { left: '15%', bottom: '30%' },
+                { right: '15%', bottom: '25%' }
+            ];
+
+            positions.forEach((pos, i) => {
+                const ghost = document.createElement('div');
+                ghost.className = 'ghost-float';
+                ghost.textContent = '👻';
+                Object.assign(ghost.style, pos);
+                ghost.style.animationDelay = i * 2 + 's';
+                document.getElementById('videoContainer').appendChild(ghost);
+            });
+        }
+
+        function createParticles() {
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                document.getElementById('videoContainer').appendChild(particle);
+            }
+        }
+
+        createBats();
+        createGhosts();
+        createParticles();
+        playVideo();
+    </script>
+</body>
+</html>            position: absolute;
             width: 100%;
             height: 100%;
             display: flex;
